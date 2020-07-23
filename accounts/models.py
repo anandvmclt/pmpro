@@ -63,6 +63,7 @@ class User(AbstractUser):
     picture = models.ImageField(upload_to='images/', null=True, blank=True)
     doj = models.DateTimeField(editable=False, auto_now_add=True, null=True)
     job = models.CharField(max_length=50, blank=True)
+    skills = models.TextField(max_length=100, blank=True)
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'

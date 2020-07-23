@@ -10,7 +10,7 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %}
@@ -37,7 +37,7 @@
                                       Welcome, Mr. {{user.first_name}} {{user.last_name}}
                                     </h5>
                                     <h6>
-                                        Web Developer and Designer
+                                        {{i.job}}
                                     </h6>
                                     <p class="proile-rating">RANKINGS : <span>8/10</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -66,7 +66,7 @@
                             <a href="">Web Developer</a><br/>
                             <a href="">WordPress</a><br/>
                             <a href="">WooCommerce</a><br/>
-                            <a href="">PHP, .Net</a><br/>
+                            {{i.skills}}
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -146,10 +146,13 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>New Profile ID</label>
+                                                <label>Change Password</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{i.id}}</p>
+                                                <p> <a href="/accounts/update_password/">
+                                                    Click here to Update
+                                                </a>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="row">

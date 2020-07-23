@@ -1,13 +1,13 @@
 from django.contrib import auth, messages
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash
-from .forms import UserForm, EditProfileForm
+from .forms import UserForm, EditProfileForm, UpdatePasswordForm
 from .models import AbstractUser, User
-from django.contrib.auth.models import AbstractUser
 
 
 # Create your views here.
@@ -16,7 +16,7 @@ from django.contrib.auth.models import AbstractUser
 def index(request):
     if request.session._session:
         uid = request.user.id
-        #kid = uid - 1
+        # kid = uid - 1
         mydata = User.objects.filter(id=uid)
         dbdata = {'mydata': mydata}
         return render(request, "accounts/index.html", dbdata)
@@ -37,7 +37,7 @@ def join(request):
         if user_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
-			# user.save()
+            # user.save()
             # profile = profile_form.save(commit=False)
             # profile.user = user
             if 'picture' in request.FILES:
@@ -56,7 +56,7 @@ def join(request):
         # The request is not a HTTP POST and already logined, so display the  Header menu with User details.
     elif request.session._session:
         uid = request.user.id
-        #kid = uid - 1
+        # kid = uid - 1
         mydata = User.objects.filter(id=uid)
         dbdata = {'mydata': mydata}
         return render(request, 'accounts/login.html', dbdata)
@@ -70,7 +70,7 @@ def join(request):
 
 
 def login(request):
-   # context = RequestContext(request)
+    # context = RequestContext(request)
 
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
@@ -100,10 +100,10 @@ def login(request):
 
     # The request is not a HTTP POST and already logined, so display the  Header menu with User details.
     elif request.session._session:
-            uid = request.user.id
-            mydata = User.objects.filter(id=uid)
-            dbdata = {'mydata': mydata}
-            return render(request, 'accounts/login.html', dbdata)
+        uid = request.user.id
+        mydata = User.objects.filter(id=uid)
+        dbdata = {'mydata': mydata}
+        return render(request, 'accounts/login.html', dbdata)
 
     # The request is not a HTTP POST, so display the login form.
     else:
@@ -113,15 +113,17 @@ def login(request):
 @login_required
 def userhome(request):
     uid = request.user.id
-    #kid = uid - 1
+    # kid = uid - 1
     mydata = User.objects.filter(id=uid)
     dbdata = {'mydata': mydata}
     return render(request, "accounts/user_home.html", dbdata)
 
+
 def reg_users(request):
     users = User.objects.all()
-    mydata = {'users':users}
-    return render(request,'accounts/users.html', mydata)
+    mydata = {'users': users}
+    return render(request, 'accounts/users.html', mydata)
+
 
 def profile(request):
     return HttpResponse("User Registration Successfull.")
@@ -132,11 +134,8 @@ def update_user(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
         if form.is_valid():
-            user_form = form.save()
             user = request.user
-            password = form.cleaned_data['password'] # Grab password from the form
-            user.set_password(password)  # Convert to Hashed Passsword
-            user.save()                    # Save the Updated password in Hashed Format
+            user.save()  # Save the Updated User Details
             return redirect('/accounts/profile_updated/')
     else:
         form = EditProfileForm(instance=request.user)
@@ -144,16 +143,32 @@ def update_user(request):
         # args.update(csrf(request))
         uid = request.user.id
         mydata = User.objects.filter(id=uid)
-
         args['form'] = form
         args['mydata'] = mydata
         return render(request, 'accounts/update_user.html', args)
+
+
+@login_required
+def update_password(request):
+        if request.method == 'POST':
+            form = UpdatePasswordForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('/accounts/profile_updated/')
+            else:
+                messages.error(request, 'Please correct the error below.')
+        else:
+            form = UpdatePasswordForm(request.user)
+        return render(request, 'accounts/update_password.html', {'form': form})
+
 
 def profile_updated(request):
     messages.info(request, 'Your Profile has been Updated successfully!')
     return HttpResponseRedirect('/accounts/userhome/')
 
+
 def logout(request):
     auth.logout(request)
     return redirect('/accounts/')
-

@@ -14,7 +14,7 @@ urlpatterns = [
       path('updateuser/', views.update_user, name="Update_User"),
       path('profile_updated/', views.profile_updated, name = 'profile_updated'),
       path('userhome/', views.userhome, name = 'User Home'),
-      #path('update/', views.update_profile, name="Update_Profile"),
+      path('update_password/', views.update_password, name="Update_password"),
       path('profile/<int:pid>',views.profile, name="Profile"),
       path('users/', views.reg_users, name='Reg_users'),
 
