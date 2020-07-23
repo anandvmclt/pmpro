@@ -1,0 +1,51 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+{% extends 'accounts/base.html' %}
+
+{% block title %}Accounts APP - Home{% endblock %}
+
+{% block body %}
+ {% if user.is_authenticated %}
+<br>
+<h2> Welcomr to PM Pro App...!</h2>
+<h3> You are Logined as: {{user.username}}, <a href="{% url 'logout' %}"> Logout</a> </h3> <br>
+
+ <h4> Click here to Redirect to Your Profile:  <a href="/accounts/profile/"> My Profile</a> </h3> </h4>
+
+{% else %}
+
+ <h1>Signup with Friends App</h1>
+
+        {% if registered %}
+        App says: <strong>thank you for registering!</strong>
+        <a href="/accounts/">Return to the homepage.</a><br />
+        {% else %}
+        App Says: <strong>register here!</strong><br />
+    <div class="container mt-4">
+        <h2> Welcome to Friends App Registration Page</h2>  <br>
+            <form id="user_form" method="post" action="/accounts/join/" enctype="multipart/form-data">
+         <div class="form-row">
+                    {% csrf_token %}
+            <div class="form-group myforms">
+                        {{ user_form.as_p }}
+            </div>
+            <div class="form-group myforms">
+                        {{ profile_form.as_p }}
+            </div>
+         </div>
+               <!-- Provide a button to click to submit the form. -->
+               <button type="submit" class="btn btn-primary" value="register">Submit</button>
+            </form>
+    </div>
+        <br>
+
+        {% endif %}
+
+    {% endif %}
+{% endblock %}

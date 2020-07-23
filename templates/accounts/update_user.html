@@ -1,0 +1,20 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block title %} User Profile Update page{% endblock %}
+
+<!------ Include the above in your HEAD tag ---------->
+
+{% block body %}
+
+<h2>User Accounts - Edit Profile Page </h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        {{ profile_form.as_table }}
+        </table>
+        <button type="submit" class="btn btn-primary-new">Update Profile</button>
+    </form>
+
+{% endblock %}

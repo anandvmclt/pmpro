@@ -1,0 +1,116 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="" crossorigin="anonymous">
+    <script src="/static/js/form.js"></script>
+       <link rel="stylesheet" href="{% static 'css/user_home.css' %}">
+       <link rel="stylesheet" href="{% static 'css/custom_style.css' %}">
+    <title>{% block title %}Accounts Module{% endblock %}</title>
+         {% block css %}
+    <style>
+
+    </style>
+       {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      {% if user.is_authenticated %}
+      <a class="navbar-brand" href="#">User App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/accounts">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/accounts/about">About</a>
+      </li>
+
+         <li class="nav-item">
+        <a class="nav-link" href="/accounts/users">Users</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/accounts/contact">Contact US</a>
+      </li>
+    </ul>
+      <form method="get" action="#" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+            {% for i in mydata %}
+            <div class="logged-user-menu">
+           <ul class="nav navbar-nav navbar-right">
+               <li><a class="lg-welcome" href="/accounts/profile/"> Hello <b>{{ user }} !! </b> </a> </li>
+                <li><img src="{{i.picture.url}}" class="mybtn" width="50" height="50"></li>
+            </ul>
+
+            </div>
+            {% endfor %}
+       <a href="{% url 'logout' %}"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button></a>
+    <button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus.">
+     Cart(<span id="cart">0</span>)
+    </button>
+   </div>
+  </nav>
+
+      {%else%}
+  <a class="navbar-brand" href="#">User App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/accounts">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/accounts/about">About</a>
+      </li>
+
+         <li class="nav-item">
+        <a class="nav-link" href="/accounts/users">Users</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/accounts/contact">Contact US</a>
+      </li>
+    </ul>
+    <form method="get" action="#" class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+    </form>
+        <a href="/accounts/join/"> <button class="btn btn-outline-success my-2 my-sm-0 mybtn" type="submit">Join </button></a>
+        <a href="/accounts/login/"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button></a>
+
+    <button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus.">
+     Cart(<span id="cart">0</span>)
+    </button>
+   </div>
+  </nav>
+    {%endif%}
+    {% block body %}
+
+    {% endblock %}
+
+
+    <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+ <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="" crossorigin="anonymous"></script>
+  <!-- <script src="/static/jquery-3.5.1.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="" crossorigin="anonymous"></script>
+  {% block js %} {% endblock %}
+</body>
+</html>
