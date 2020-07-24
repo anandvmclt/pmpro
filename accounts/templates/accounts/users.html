@@ -31,10 +31,10 @@
                       <td>
                       <img src="{{i.picture.url}}" class="mybtn" width="50" height="50" alt="Profile_Pic"/>
                     </td>
-                    <td>{{i.username}}</td>
+                    <td> <a href="/accounts/profile/{{i.id}}"> {{i.username}} </a> </td>
                       <td>{{i.first_name}}</td>
                     <td>{{i.doj}}</td>
-                    <th><a href="/edit/{{post.sno}}"><button class="btn btn-primary"> Edit </button></a></th>
+                    <th><a href="/edit/{{post.sno}}"><button class="btn btn-primary"> Edit </button> </a> </th>
                     <th><a href="/delete/{{post.sno}}"><button class="btn btn-primary">  Delete </button></a></th>
 
                 </tr>

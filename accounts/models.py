@@ -66,9 +66,8 @@ class User(AbstractUser):
     skills = models.TextField(max_length=100, blank=True)
 
     EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name']
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
-
     objects = UserManager()
 
     # Override the __unicode__() method to return out something meaningful!

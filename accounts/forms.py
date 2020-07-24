@@ -28,11 +28,11 @@ class UserForm(forms.ModelForm):
 class EditProfileForm(ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'email', 'mobile', 'city', 'userbio', 'website', 'job', 'skills', 'picture')
+        fields = ('username', 'first_name', 'last_name', 'email', 'mobile', 'city', 'userbio', 'website', 'job', 'skills', 'picture')
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Select Username', 'type': 'text'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name', 'type': 'text'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name', 'type': 'text'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name', 'type': 'text'}),
             'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email ID', 'type': 'email'}),
             'mobile': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mobile Number'}),
             'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your city'}),

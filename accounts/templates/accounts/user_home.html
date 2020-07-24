@@ -138,19 +138,19 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Hourly Rate</label>
+                                                <label>Session ID:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>10$/hr</p>
+                                                <p>{{request.session.name}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Change Password</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <p> <a href="/accounts/update_password/">
-                                                    Click here to Update
+                                                   <input type="button"  class="profile-edit-btn" name="btnPassword"  value="Update Password"/>
                                                 </a>
                                                 </p>
                                             </div>
@@ -165,10 +165,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Session ID</label>
+                                                <label>Delete Account</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>{{request.session.name}}</p>
+                                            <div class="col-md-4">
+                                                 <a href="/accounts/deleteuser/"> <input type="button"  class="profile-edit-btn" name="btndelete"  value="Delete Profile"/> </a>
                                             </div>
                                         </div>
                                 <div class="row">

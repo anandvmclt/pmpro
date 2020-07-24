@@ -1,0 +1,18 @@
+
+
+{% extends 'accounts/base.html' %}
+
+{% block title %}Accounts APP - Home{% endblock %}
+
+{% block body %}
+
+<h2>Accounts - Home </h2>
+{% if messages %}
+<ul class="messages">
+    {% for msg in message %}
+    <li>{% if msg.tags %} class="{{ msg.tags }}"{% endif %}{{ msg }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

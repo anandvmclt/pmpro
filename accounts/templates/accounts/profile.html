@@ -16,8 +16,8 @@
 {% endif %}
 
 
-{% for i in mydata %}
-   {% for j in userdata %}
+{% for i in userdata %}
+
 <div class="container emp-profile">
             <form method="post">
                 <div class="row">
@@ -33,7 +33,7 @@
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                      Welcome to {{j.first_name}} {{j.last_name}} 's Profile
+                                      Welcome to {{i.first_name}} {{i.last_name}} 's Profile
                                     </h5>
                                     <h6>
                                         {{i.job}}
@@ -85,7 +85,7 @@
                                                 <label>User Name</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{j.username}}</p>
+                                                <p>{{i.username}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -93,13 +93,13 @@
                                                 <label>First Name</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{j.first_name}}</p>
+                                                <p>{{i.first_name}}</p>
                                             </div>
                                                <div class="col-md-6">
                                                 <label>Last Name</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{j.last_name}}</p>
+                                                <p>{{i.last_name}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -107,10 +107,9 @@
                                                 <label>Email</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{j.email}}</p>
+                                                <p>{{i.email}}</p>
                                             </div>
                                         </div>
-                                      {% endfor %}
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Phone</label>

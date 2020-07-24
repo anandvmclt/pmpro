@@ -1,16 +1,14 @@
 from django.contrib import auth, messages
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import User
+#from django.contrib.auth.forms import PasswordChangeForm
+#from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import update_session_auth_hash
 from .forms import UserForm, EditProfileForm, UpdatePasswordForm
-from .models import AbstractUser, User
+from .models import User
 
-
-# Create your views here.
 
 # Create your views here.
 def index(request):
@@ -59,7 +57,7 @@ def join(request):
         # kid = uid - 1
         mydata = User.objects.filter(id=uid)
         dbdata = {'mydata': mydata}
-        return render(request, 'accounts/login.html', dbdata)
+        return render(request, 'accounts/join.html', dbdata)
 
     # The request is not a HTTP POST and Not Logged in so display the Signup Form
     else:
@@ -70,14 +68,11 @@ def join(request):
 
 
 def login(request):
-    # context = RequestContext(request)
-
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
         # This information is obtained from the login form.
         username = request.POST['username']
         password = request.POST['password']
-
         user = authenticate(username=username, password=password)
 
         # If we have a User object, the details are correct.
@@ -120,19 +115,22 @@ def userhome(request):
 
 
 def reg_users(request):
-    users = User.objects.all()
-    mydata = {'users': users}
-    return render(request, 'accounts/users.html', mydata)
+    users = User.objects.all()  # Fetch alUser datas from the dataBase
+    mydata = {'users':users}  # pass the atas as Dictionary format to HTML Jinja2 templates
+    return render(request,'accounts/users.html', mydata)
 
 
-def profile(request):
-    return HttpResponse("User Registration Successfull.")
 
+def profile(request, pid):
+    uid = pid
+    userdata = User.objects.filter(id=uid)
+    mydata = {'userdata': userdata}
+    return render(request, "accounts/profile.html", mydata)
 
 @login_required
 def update_user(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
+        form = EditProfileForm(request.POST,request.FILES, instance=request.user)
         if form.is_valid():
             user = request.user
             user.save()  # Save the Updated User Details
@@ -172,3 +170,19 @@ def profile_updated(request):
 def logout(request):
     auth.logout(request)
     return redirect('/accounts/')
+
+
+def delete_user(request):
+    context = {}
+
+    try:
+        uid = request.user.id
+        u = User.objects.get(id=uid)
+        u.delete()
+        context['msg'] = 'The user is deleted.'
+    except User.DoesNotExist:
+        context['msg'] = 'User does not exist.'
+    except Exception as e:
+        context['msg'] = e.message
+
+    return render(request, "accounts/index.html", context)

@@ -17,6 +17,7 @@ urlpatterns = [
       path('update_password/', views.update_password, name="Update_password"),
       path('profile/<int:pid>',views.profile, name="Profile"),
       path('users/', views.reg_users, name='Reg_users'),
+      path('deleteuser/', views.delete_user, name='Del_users'),
 
 ]
 if settings.DEBUG:
